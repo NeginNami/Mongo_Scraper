@@ -1,0 +1,53 @@
+#scrape_button {
+	margin-top: 8px;
+}
+
+#scraper_nav {
+	margin-bottom: 0px;
+}
+
+#main_container {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.jumbotron {
+	text-align: center;
+	background-image: url("../img/newspaper3.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 550px;
+}
+
+#jumbotron_text {
+	margin-top: 100px;
+	font-family: 'Shrikhand', cursive;
+}
+
+.article_node {
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-bottom: 25px;
+}
+
+.article_node h3 {
+	font-family: 'Alegreya Sans', sans-serif;
+}
+
+.article_node h4 {
+	color: grey;
+	font-family: 'News Cycle', sans-serif;
+}
+
+.article_desc_row {
+	background-color: #e6ddf0;
+}
+
+.article_title_row {
+	background-color: #e6ddf0;
+	border-bottom: 1px solid lightgrey;
+}
+
+#save_button {
+	margin-top: 12px;
+}

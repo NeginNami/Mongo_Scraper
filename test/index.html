@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Mongo Scraper</title>
+	<meta charset="UTF-8">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../public/assets/css/style.css" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../public/assets/js/app.js"></script>
+</head>
+
+<body>
+
+	<div class="container-fluid" id="main_container">
+		<nav class="navbar navbar-default" id="scraper_nav">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Mongo Scraper</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active">
+						<a href="#">Home</a>
+					</li>
+					<li>
+						<a href="#">Saved Articles</a>
+					</li>
+					<li>
+						<button type="button" class="btn btn-danger" id="scrape_button">Scrape New Article</button>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="jumbotron">
+			<div id="jumbotron_text">
+				<h1>Mongo Scraper</h1>
+				<h2>New York Times Edition</h2>
+			</div>
+		</div>
+		<div class="article_node">
+			<div class="row article_title_row">
+				<div class="col-lg-10 col-md-10 col-sm-10">
+					<h3>News' Title</h3>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2">
+					<button type="button" class="btn btn-warning" id="save_button">Save the Article</button>
+				</div>
+			</div>
+			<div class="row article_desc_row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<h4>News' description</h4>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+</body>
+
+</html>
