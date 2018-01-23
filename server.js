@@ -36,4 +36,6 @@ var routes = require("./controllers/articles_controller.js");
 
 app.use("/", routes);
 
-app.listen(port);
+app.listen(port, function() {
+	console.log("App running on port " + port + "!");
+});

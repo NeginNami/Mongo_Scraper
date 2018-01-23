@@ -2,8 +2,10 @@ var express = require("express");
 var router = express.Router();
 var request = require("request");
 var cheerio = require("cheerio");
+var artcle = require("../model/article");
+const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
-var myarr = [];
 router.get('/', function(req, res) {
 	res.render("index");
 });
@@ -22,16 +24,22 @@ router.post("/scrape", function(req, res) {
 			var linkC = $(element).children("h2.story-heading").children("a").attr("href");
 			var obj = {
 				title: titleC,
-				summary: summaryC,
-				link: linkC
+				link: linkC,
+				description: summaryC
 			};
-			if (obj.title !== '' && obj.summary !== '')
-				myarr.push(obj);
 
+			if (obj.title !== '' && obj.description !== '') {
+
+				artcle.create(obj).then(function(databack) {
+						res.send();
+					})
+					.catch(function(err) {
+						// If an error occurred, send it to the client
+						res.json(err);
+					});
+			}
 		});
 
-		console.log(myarr);
-		res.send(myarr);
 	});
 
 });
