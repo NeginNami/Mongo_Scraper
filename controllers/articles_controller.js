@@ -7,7 +7,14 @@ const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 router.get('/', function(req, res) {
-	res.render("index");
+
+	artcle.find({}).then((data) => {
+		console.log(data);
+		var obj = {
+			articles: data
+		};
+		res.render("index", obj);
+	});
 });
 
 // Scrape data from one site and place it into the mongodb db
@@ -31,7 +38,7 @@ router.post("/scrape", function(req, res) {
 			if (obj.title !== '' && obj.description !== '') {
 
 				artcle.create(obj).then(function(databack) {
-						res.send();
+						res.send("Scrape Complete");
 					})
 					.catch(function(err) {
 						// If an error occurred, send it to the client

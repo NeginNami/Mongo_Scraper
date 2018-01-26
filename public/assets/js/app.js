@@ -8,5 +8,6 @@ $(document).on("click", "#scrape_button", function() {
 
 		.done(function(data) {
 			console.log(data);
+			location.reload();
 		});
 });
