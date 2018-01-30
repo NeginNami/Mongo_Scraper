@@ -1,13 +1,12 @@
 $(document).on("click", "#scrape_button", function() {
 
 	$.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "/scrape"
-		})
+		type: "POST",
+		dataType: "json",
+		url: "/scrape"
+	}).done(function(data) {
+		console.log(data);
+		setTimeout(function() { location.reload(); }, 1000);
 
-		.done(function(data) {
-			console.log(data);
-			location.reload();
-		});
+	});
 });

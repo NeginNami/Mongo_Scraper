@@ -9,7 +9,7 @@ mongoose.Promise = Promise;
 router.get('/', function(req, res) {
 
 	artcle.find({}).then((data) => {
-		console.log(data);
+		//console.log(data);
 		var obj = {
 			articles: data
 		};
@@ -19,8 +19,10 @@ router.get('/', function(req, res) {
 
 // Scrape data from one site and place it into the mongodb db
 router.post("/scrape", function(req, res) {
+
 	// Make a request for the news section of ycombinator
 	request("https://www.nytimes.com/", function(error, response, html) {
+
 		// Load the html body from request into cheerio
 		var $ = cheerio.load(html);
 		// For each element with a "title" class
@@ -38,16 +40,21 @@ router.post("/scrape", function(req, res) {
 			if (obj.title !== '' && obj.description !== '') {
 
 				artcle.create(obj).then(function(databack) {
-						res.send("Scrape Complete");
+						//res.send(obj2);
+						console.log(databack);
 					})
 					.catch(function(err) {
 						// If an error occurred, send it to the client
 						res.json(err);
 					});
 			}
+			//console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		});
+		//console.log("------------------------------------------");
 
 	});
+	//console.log("****************************************");
+	res.send({ cond: "Good" });
 
 });
 
