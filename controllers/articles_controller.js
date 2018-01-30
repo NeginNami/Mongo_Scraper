@@ -20,12 +20,11 @@ router.get('/', function(req, res) {
 // Scrape data from one site and place it into the mongodb db
 router.post("/scrape", function(req, res) {
 
-	// Make a request for the news section of ycombinator
 	request("https://www.nytimes.com/", function(error, response, html) {
 
 		// Load the html body from request into cheerio
 		var $ = cheerio.load(html);
-		// For each element with a "title" class
+
 		$("article").each(function(i, element) {
 			// Save the text and href of each link enclosed in the current element
 			var titleC = $(element).children("h2").text().trim();
@@ -40,7 +39,6 @@ router.post("/scrape", function(req, res) {
 			if (obj.title !== '' && obj.description !== '') {
 
 				artcle.create(obj).then(function(databack) {
-						//res.send(obj2);
 						console.log(databack);
 					})
 					.catch(function(err) {
@@ -48,12 +46,11 @@ router.post("/scrape", function(req, res) {
 						res.json(err);
 					});
 			}
-			//console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 		});
-		//console.log("------------------------------------------");
 
 	});
-	//console.log("****************************************");
+
 	res.send({ cond: "Good" });
 
 });
