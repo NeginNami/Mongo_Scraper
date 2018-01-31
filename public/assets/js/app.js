@@ -6,7 +6,7 @@ $(document).on("click", "#scrape_button", function() {
 		url: "/scrape"
 	}).done(function(data) {
 		console.log(data);
-		setTimeout(function() { location.reload(); }, 1000);
+		setTimeout(function() { location.reload(); }, 3000);
 
 	});
 });

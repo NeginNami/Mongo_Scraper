@@ -36,16 +36,25 @@ router.post("/scrape", function(req, res) {
 				description: summaryC
 			};
 
-			if (obj.title !== '' && obj.description !== '') {
+			artcle.findOne({ "title": obj.title }, (err, data) => {
+				if (err) {
+					console.log("error");
+				}
+				if (data) { // Search could come back empty, so we should protect against sending nothing back
+					console.log("It is tekrari!!!");
+				} else { // In case no kitten was found with the given query
+					if (obj.title !== '' && obj.description !== '') {
 
-				artcle.create(obj).then(function(databack) {
-						console.log(databack);
-					})
-					.catch(function(err) {
-						// If an error occurred, send it to the client
-						res.json(err);
-					});
-			}
+						artcle.create(obj).then(function(databack) {
+								console.log(databack);
+							})
+							.catch(function(err) {
+								// If an error occurred, send it to the client
+								res.json(err);
+							});
+					}
+				}
+			});
 
 		});
 
