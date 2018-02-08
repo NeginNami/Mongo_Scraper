@@ -6,7 +6,7 @@ var artcle = require("../model/article");
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
 
 	artcle.find({}).then((data) => {
 		//console.log(data);
@@ -18,14 +18,16 @@ router.get('/', function(req, res) {
 });
 
 // Scrape data from one site and place it into the mongodb db
-router.post("/scrape", function(req, res) {
+router.post("/scrape", function (req, res) {
+	var posts = [];
+	console.log("route top");
 
-	request("https://www.nytimes.com/", function(error, response, html) {
-
+	request("https://www.nytimes.com/", function (error, response, html) {
+		console.log("request");
 		// Load the html body from request into cheerio
 		var $ = cheerio.load(html);
 
-		$("article").each(function(i, element) {
+		$("article").each(function (i, element) {
 			// Save the text and href of each link enclosed in the current element
 			var titleC = $(element).children("h2").text().trim();
 			var summaryC = $(element).children("p.summary").text().trim();
@@ -36,31 +38,50 @@ router.post("/scrape", function(req, res) {
 				description: summaryC
 			};
 
-			artcle.findOne({ "title": obj.title }, (err, data) => {
-				if (err) {
-					console.log("error");
-				}
-				if (data) { // Search could come back empty, so we should protect against sending nothing back
-					console.log("It is tekrari!!!");
-				} else { // In case no kitten was found with the given query
-					if (obj.title !== '' && obj.description !== '') {
-
-						artcle.create(obj).then(function(databack) {
-								console.log(databack);
-							})
-							.catch(function(err) {
-								// If an error occurred, send it to the client
-								res.json(err);
-							});
-					}
-				}
-			});
+			/*		artcle.findOne({ "title": obj.title }, (err, data) => {
+						if (err) {
+							console.log("error");
+						}
+						if (data) { // Search could come back empty, so we should protect against sending nothing back
+							console.log("It is tekrari!!!");
+						} else { // In case no kitten was found with the given query
+							if (obj.title !== '' && obj.description !== '') {
+		
+								artcle.create(obj).then(function(databack) {
+										console.log(databack);
+									})
+									.catch(function(err) {
+										// If an error occurred, send it to the client
+										res.json(err);
+									});
+							}
+						}
+					}); */
+			posts.push(obj);
 
 		});
+		const postPromises = posts.map(value => {
+			artcle.create(value).then(function (databack) {
+				//console.log(databack);
+			})
+				.catch(function (err) {
+					// If an error occurred, send it to the client
+					res.json(err);
+				});
+		});
+		Promise.all(postPromises).then(() => {
+			//res.redirect('/');
+			res.send({ tedad: posts.length });
+			console.log("Redirect");
+		});
+
+		//console.log(posts);
+		console.log("request buttom");
 
 	});
 
-	res.send({ cond: "Good" });
+	//res.send({ tedad: posts.length });
+	console.log("route buttom");
 
 });
 
