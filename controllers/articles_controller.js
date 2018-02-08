@@ -57,17 +57,20 @@ router.post("/scrape", function (req, res) {
 							}
 						}
 					}); */
-			posts.push(obj);
+			if (obj.title !== '' && obj.description !== '')
+				posts.push(obj);
 
 		});
+
 		const postPromises = posts.map(value => {
+
 			artcle.create(value).then(function (databack) {
 				//console.log(databack);
 			})
 				.catch(function (err) {
 					// If an error occurred, send it to the client
 					res.json(err);
-				});
+				})
 		});
 		Promise.all(postPromises).then(() => {
 			//res.redirect('/');
